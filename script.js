@@ -35,6 +35,8 @@ const decimalToBinary = (input) => {
 
   // result.innerText = remainders.reverse().join("");
 
+  //END
+
   //Refactor while loop
   //create an empty string assign it to a variable
   // inside the while loop, append that variable to the result
@@ -44,33 +46,41 @@ const decimalToBinary = (input) => {
   //input = input/2
   //the display the result on screen;
 
-  let binary = "";
+  // let binary = "";
 
-  if (input === 0) {
-    binary = "0";
-  }
+  // if (input === 0) {
+  //   binary = "0";
+  // }
 
-  while (input > 0) {
-    binary = (input % 2) + binary;
-    input = Math.floor(input / 2);
-  }
+  // while (input > 0) {
+  //   binary = (input % 2) + binary;
+  //   input = Math.floor(input / 2);
+  // }
 
-  result.innerText = binary;
+  // result.innerText = binary;
+
+  //END
 
   //3rd way using recursive;
+  // seek the base case and
+  // then call the function itself passing input value -1 as param to get
+  //the min val  closed to the base case;
+
+  if (input === 0 || input === 1) {
+    return String(input);
+  } else {
+    return decimalToBinary(Math.floor(input / 2)) + (input % 2);
+  }
 };
 
 const checkUserInput = () => {
-  if (
-    !numberInput.value ||
-    isNaN(parseInt(numberInput.value)) ||
-    parseInt(numberInput.value) < 0
-  ) {
+  const inputValue = parseInt(numberInput.value);
+  if (!numberInput.value || isNaN(inputValue) || inputValue < 0) {
     alert("Please provide a decimal number greater than or equal to 0");
     return;
   }
 
-  decimalToBinary(parseInt(numberInput.value));
+  result.innerText = decimalToBinary(inputValue);
   numberInput.value = "";
 };
 
