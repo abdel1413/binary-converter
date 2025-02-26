@@ -1,6 +1,52 @@
 const numberInput = document.getElementById("number-input");
 const convertBtn = document.getElementById("convert-btn");
 const result = document.getElementById("result");
+const animationContainer = document.getElementById("animation-container");
+const animationData = [
+  {
+    inputVal: 5,
+    addElDelay: 1000,
+    text: 'decimalToBinary(5) returns "10" + 1 (5 % 2). Then it pops off the stack.',
+    showMsgDelay: 15000,
+    removeMsgDelay: 20000,
+  },
+
+  {
+    inputVal: 2,
+    addElDelay: 1500,
+    text: 'decimalToBinary(2) returns "1" + 0 (2 % 2) and gives that value to the stack below. Then it pops off the stack.',
+    showMsgDelay: 10000,
+    removeMsgDelay: 15000,
+  },
+  {
+    inputVal: 1,
+    addElDelay: 2000,
+    text: "decimalToBinary(1) returns '1' (base case) and gives that value to the stack below. Then it pops off the stack.",
+    showMsgDelay: 5000,
+    removeMsgDelay: 10000,
+  },
+];
+
+const showAnimation = () => {
+  result.innerText = "Call Stack Animation";
+  animationData.forEach(
+    ({ inputVal, text, addElDelay, showMsgDelay, removeMsgDelay }) => {
+      setTimeout(() => {
+        animationContainer.innerHTML += `<p id="${inputVal}" class="animation-frame"> DecimalToBinary( ${inputVal} )</p>`;
+      }, addElDelay);
+
+      setTimeout(() => {
+        document.getElementById(inputVal).textContent = text;
+      }, showMsgDelay);
+      setTimeout(() => {
+        document.getElementById(inputVal).remove();
+      }, removeMsgDelay);
+    }
+  );
+  setTimeout(() => {
+    result.textContent = decimalToBinary(5);
+  }, 20000);
+};
 
 const decimalToBinary = (input) => {
   //1st  way create input array where you push each input value
@@ -74,13 +120,17 @@ const decimalToBinary = (input) => {
 };
 
 const checkUserInput = () => {
-  const inputValue = parseInt(numberInput.value);
-  if (!numberInput.value || isNaN(inputValue) || inputValue < 0) {
+  const inputInt = parseInt(numberInput.value);
+  if (!numberInput.value || isNaN(inputInt) || inputInt < 0) {
     alert("Please provide a decimal number greater than or equal to 0");
     return;
   }
+  if (inputInt === 5) {
+    showAnimation();
+    return;
+  }
 
-  result.innerText = decimalToBinary(inputValue);
+  result.innerText = decimalToBinary(inputInt);
   numberInput.value = "";
 };
 
