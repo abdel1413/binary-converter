@@ -31,6 +31,7 @@ const showAnimation = () => {
   result.innerText = "Call Stack Animation";
   animationData.forEach(
     ({ inputVal, text, addElDelay, showMsgDelay, removeMsgDelay }) => {
+
       setTimeout(() => {
         animationContainer.innerHTML += `<p id="${inputVal}" class="animation-frame"> DecimalToBinary( ${inputVal} )</p>`;
       }, addElDelay);
@@ -38,17 +39,20 @@ const showAnimation = () => {
       setTimeout(() => {
         document.getElementById(inputVal).textContent = text;
       }, showMsgDelay);
+
       setTimeout(() => {
         document.getElementById(inputVal).remove();
       }, removeMsgDelay);
     }
   );
+
   setTimeout(() => {
     result.textContent = decimalToBinary(5);
   }, 20000);
 };
 
 const decimalToBinary = (input) => {
+
   //1st  way create input array where you push each input value
   // then quotients array to push each quotient value
   //and finaly a remainder array to push each remainder
@@ -68,7 +72,6 @@ const decimalToBinary = (input) => {
   // while (input > 0) {
   //   const quotient = Math.floor(input / 2);
   //   const remainder = input % 2;
-
   //   inputs.push(input);
   //   quotients.push(quotient);
   //   remainders.push(remainder);
@@ -90,7 +93,7 @@ const decimalToBinary = (input) => {
   // var = input%2 + var;
   // divide input by 2 and assign it to same var holding input value
   //input = input/2
-  //the display the result on screen;
+  //then display the result on screen;
 
   // let binary = "";
 
@@ -111,13 +114,27 @@ const decimalToBinary = (input) => {
   // seek the base case and
   // then call the function itself passing input value -1 as param to get
   //the min val  closed to the base case;
+  
+
 
   if (input === 0 || input === 1) {
+    console.log("base case", input);
     return String(input);
   } else {
+       
+    
+    //decim(2/2) + (input % 2) => 1 + 0 => 
+    //decim(3/2) + (input % 2) => 1+ 1 => 11
+    //decim(4/2) + (input % 2) => 10 + 0 => 100
+    //4/2 => 2  + 0
+    // 2/2 => 1 + 0 
+   console.log("recursive call", input, 'remainder', input % 2); ;
+   
     return decimalToBinary(Math.floor(input / 2)) + (input % 2);
   }
 };
+
+// end of recursive way
 
 const checkUserInput = () => {
   const inputInt = parseInt(numberInput.value);
@@ -129,7 +146,6 @@ const checkUserInput = () => {
     showAnimation();
     return;
   }
-
   result.innerText = decimalToBinary(inputInt);
   numberInput.value = "";
 };
